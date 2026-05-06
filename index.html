@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAMDREAM - Building the Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@web3forms/contact@latest/dist/index.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #02051e;
+            --secondary: #0650b1;
+            --accent: #424140;
+            --dark: #333333;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition-slow: all 1s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            left: 0;
+            bottom: -5px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Enhanced Hero Section - 1920x1080 with Slideshow */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 1080px;
+            max-height: 100vh;
+            overflow: hidden;
+            margin-top: 77px;
+        }
+
+        @media (max-width: 1600px) {
+            .hero {
+                height: 800px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .hero {
+                height: 700px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 500px;
+            }
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-slide-1 {
+            background-image: url('hero-1.png');
+        }
+
+        .hero-slide-2 {
+            background-image: url('hero-2.png');
+        }
+
+        .hero-slide-3 {
+            background-image: url('hero-3.png');
+        }
+
+        .hero-slide-4 {
+            background-image: url('hero-2.png');
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 900px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .hero-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-indicators {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .hero-indicator {
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hero-indicator.active {
+            background-color: white;
+            transform: scale(1.3);
+        }
+
+        .hero-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 10;
+        }
+
+        .hero-nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #e05a00;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Enhanced Core Values with Circular Progress */
+        .values {
+            background-color: var(--light);
+        }
+
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .value-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .value-progress-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+        }
+
+        .value-progress {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .value-progress-circle {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .value-progress-bg {
+            stroke: rgba(0, 86, 166, 0.1);
+        }
+
+        .value-progress-fill {
+            stroke: var(--primary);
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 1.5s ease-out;
+        }
+
+        .value-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .value-progress-text:after {
+            content: '%';
+            font-size: 1.5rem;
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.2);
+            color: var(--accent);
+        }
+
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .value-card p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Products & Services Section */
+        .products-services {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-img {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-content h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .service-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .service-features li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(rgba(0, 86, 166, 0.9), rgba(0, 86, 166, 0.9)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            background-color: var(--light);
+        }
+
+        .carousel-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: white;
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 86, 166, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .location-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .location-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .location-map {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-icon:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover:before {
+            transform: translateY(0);
+        }
+
+        .social-icon:hover i {
+            animation: spin 0.5s ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3:after, .footer-contact h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1600px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-navigation {
+                padding: 0 15px;
+            }
+            
+            .hero-nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            nav.active {
+                max-height: 300px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .hero-navigation {
+                display: none;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .value-progress-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .value-progress-text {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+            
+            .value-progress-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .value-progress-text {
+                font-size: 1.8rem;
+            }
+            
+            .value-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animation classes */
+        .animate {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo.png" alt="ZAMDREAM Logo">
+                <div class="logo-text">ZAMDREAM<span></span></div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#values">Our Values</a></li>
+                    <li><a href="#stats">Our Impact</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section with Slideshow -->
+    <section class="hero" id="home">
+        <!-- Slide 1 -->
+        <div class="hero-slide hero-slide-1 active">
+            <div class="hero-content active">
+                <h1>Building The Future With Excellence</h1>
+                <p>ZAMDREAM is a leader in Engineering and infrastructure development, delivering innovative and sustainable solutions for a better tomorrow.</p>
+                <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="hero-slide hero-slide-2">
+            <div class="hero-content">
+                <h1>Innovative Architecure Solutions</h1>
+                <p>We combine cutting-edge technology with proven methodologies to ensure every project meets the highest standards of safety and sustainability.</p>
+                <a href="#services" class="btn">Our Services</a>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="hero-slide hero-slide-3">
+            <div class="hero-content">
+                <h1>Global Infrastructure Development</h1>
+                <p>From residential complexes to commercial hubs and public infrastructure, we are committed to building a better future for communities worldwide.</p>
+                <a href="#projects" class="btn">Our Projects</a>
+            </div>
+        </div>
+        
+        <!-- Slide 4 -->
+        <div class="hero-slide hero-slide-4">
+            <div class="hero-content">
+                <h1>Sustainable Development Partners</h1>
+                <p>With over two decades of experience, we specialize in delivering high-quality infrastructure projects that stand the test of time.</p>
+                <a href="#about" class="btn">About Us</a>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="hero-navigation">
+            <button class="hero-nav-btn" id="prevHeroSlide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="hero-nav-btn" id="nextHeroSlide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Indicators -->
+        <div class="hero-indicators" id="heroIndicators">
+            <span class="hero-indicator active" data-slide="0"></span>
+            <span class="hero-indicator" data-slide="1"></span>
+            <span class="hero-indicator" data-slide="2"></span>
+            <span class="hero-indicator" data-slide="3"></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Zamdream International</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-img" id="aboutImg">
+                    <img src="1.jpg" alt="Construction Site">
+                </div>
+                
+                <div class="about-text" id="aboutText">
+                    <p>Founded on the principles of innovation, integrity, and excellence, Sonar International has grown to become a trusted name in the construction industry. With over two decades of experience, we specialize in delivering high-quality infrastructure projects that stand the test of time.</p>
+                    <p>Our team of experts combines cutting-edge technology with proven methodologies to ensure every project meets the highest standards of safety, sustainability, and client satisfaction.</p>
+                    <p>From residential complexes to commercial hubs and public infrastructure, we are committed to building a better future for communities around the globe.</p>
+                    <a href="#projects" class="btn">View Our Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products & Services Section -->
+    <section class="section products-services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Products & Services</h2>
+            </div>
+            
+            <div class="services-container">
+                <div class="service-card" id="service1">
+                    <div class="service-img">
+                        <img src="2.jpg" alt="Commercial Construction">
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-building"></i> Architecture Planning</h3>
+                        <p>State-of-the-art office complexes, retail centers, and mixed-use developments designed for modern businesses.</p>
+                        <ul class="service-features">
+                            <li>Office buildings & corporate headquarters</li>
+                            <li>Shopping malls & retail centers</li>
+                            <li>Mixed-use developments</li>
+                            <li>Industrial facilities</li>
+                        </ul>
+                        <a href="#contact" class="btn">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="service-card" id="service2">
+                    <div class="service-img">
+                        <img src="1.jpg" alt="Residential Development">
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-home"></i> Travel & Transportation</h3>
+                        <p>Luxury and affordable housing solutions that combine comfort, functionality, and sustainable design.</p>
+                        <ul class="service-features">
+                            <li>Luxury apartments & condominiums</li>
+                            <li>Gated communities & townships</li>
+                            <li>Affordable housing projects</li>
+                            <li>Senior living facilities</li>
+                        </ul>
+                        <a href="#contact" class="btn">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="service-card" id="service3">
+                    <div class="service-img">
+                        <img src="3.jpg" alt="Infrastructure Projects">
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-road"></i> Automotive Services</h3>
+                        <p>Essential public infrastructure including roads, bridges, utilities, and transportation systems.</p>
+                        <ul class="service-features">
+                            <li>Roads & highway construction</li>
+                            <li>Bridges & overpasses</li>
+                            <li>Water & sewage systems</li>
+                            <li>Public transportation hubs</li>
+                        </ul>
+                        <a href="#contact" class="btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Core Values with Circular Progress -->
+    <section class="section values" id="values">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Core Values</h2>
+            </div>
+            
+            <div class="values-container">
+                <div class="value-card" id="value1">
+                    <div class="value-progress-container">
+                        <div class="value-progress">
+                            <svg class="value-progress-circle">
+                                <circle class="value-progress-bg" cx="75" cy="75" r="70"></circle>
+                                <circle class="value-progress-fill" cx="75" cy="75" r="70" data-percent="95"></circle>
+                            </svg>
+                            <div class="value-progress-text">0</div>
+                        </div>
+                    </div>
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety</h3>
+                    <p>We prioritize the wellbeing of our team, clients, and communities in every project we undertake.</p>
+                </div>
+                
+                <div class="value-card" id="value2">
+                    <div class="value-progress-container">
+                        <div class="value-progress">
+                            <svg class="value-progress-circle">
+                                <circle class="value-progress-bg" cx="75" cy="75" r="70"></circle>
+                                <circle class="value-progress-fill" cx="75" cy="75" r="70" data-percent="98"></circle>
+                            </svg>
+                            <div class="value-progress-text">0</div>
+                        </div>
+                    </div>
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Customer Centricity</h3>
+                    <p>Our clients are at the heart of everything we do, ensuring their vision becomes reality.</p>
+                </div>
+                
+                <div class="value-card" id="value3">
+                    <div class="value-progress-container">
+                        <div class="value-progress">
+                            <svg class="value-progress-circle">
+                                <circle class="value-progress-bg" cx="75" cy="75" r="70"></circle>
+                                <circle class="value-progress-fill" cx="75" cy="75" r="70" data-percent="97"></circle>
+                            </svg>
+                            <div class="value-progress-text">0</div>
+                        </div>
+                    </div>
+                    <div class="value-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Results Driven</h3>
+                    <p>We are committed to delivering excellence, on time and within budget, every time.</p>
+                </div>
+                
+                <div class="value-card" id="value4">
+                    <div class="value-progress-container">
+                        <div class="value-progress">
+                            <svg class="value-progress-circle">
+                                <circle class="value-progress-bg" cx="75" cy="75" r="70"></circle>
+                                <circle class="value-progress-fill" cx="75" cy="75" r="70" data-percent="99"></circle>
+                            </svg>
+                            <div class="value-progress-text">0</div>
+                        </div>
+                    </div>
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We conduct our business with the highest ethical standards and transparency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats" id="stats">
+        <div class="container">
+            <div class="section-title">
+                <h2>Building The Future</h2>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-item" id="stat1">
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-text">Projects Completed</div>
+                </div>
+                
+                <div class="stat-item" id="stat2">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-text">Years Experience</div>
+                </div>
+                
+                <div class="stat-item" id="stat3">
+                    <div class="stat-number" data-target="120">0</div>
+                    <div class="stat-text">Dedicated Staff</div>
+                </div>
+                
+                <div class="stat-item" id="stat4">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-text">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="section carousel-section" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Projects</h2>
+            </div>
+            
+            <div class="carousel-container">
+                <div class="carousel" id="carousel">
+                    <div class="carousel-slide active">
+                        <img src="5.jpg" alt="Modern Office Building">
+                        <div class="slide-caption">
+                            <h3>Skyline Tower</h3>
+                            <p>A 50-story commercial complex completed in 2022</p>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="working-housing-project.jpg" alt="Residential Complex">
+                        <div class="slide-caption">
+                            <h3>Green Valley Residences</h3>
+                            <p>Sustainable residential development with eco-friendly features</p>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="bipoc-specialist-car-service-using-professional-mechanical-tool-repair-broken-ignition-system-licensed-specialist-garage-fixing-client-automobile-ensuring-optimal-automotive-performance.jpg" alt="Bridge Construction">
+                        <div class="slide-caption">
+                            <h3>Riverfront Bridge</h3>
+                            <p>Infrastructure project connecting two major districts</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="carousel-indicators" id="indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            
+            <div class="contact-form" id="contactForm">
+                <form id="contactFormElement" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="8ed81710-19f3-4b1b-89bf-f3c36ab3ff40">
+                    <input type="hidden" name="subject" value="New Inquiry from Website">
+                    <input type="checkbox" name="botcheck" style="display: none;">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service" name="service" class="form-control">
+                            <option value="">Select a service</option>
+                            <option value="commercial">Automotive Services</option>
+                            <option value="residential">Travel & Transportation</option>
+                            <option value="infrastructure">Infrastructure Engineering</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submitBtn">Send Message</button>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i> Thank you for your message! We'll get back to you soon.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section">
+        <div class="container location-container">
+            <div class="location-info">
+                <h3>Our Location</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Avenue, Industrial Area, Lusaka, Zambia</p>
+                <p><i class="fas fa-phone"></i> +260 211 123 456</p>
+                <p><i class="fas fa-envelope"></i> info@zamdream.co.zm</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</p>
+            </div>
+            
+            <div class="location-map" id="locationMap">
+                <!-- Replace this iframe src with your actual map embed code -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.323395311036!2d28.287859474691013!3d-15.388350584426655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1940f4f6c5f4b5a5%3A0x7f5b2a6b3b3b3b3b!2sLusaka%2C%20Zambia!5e0!3m2!1sen!2szm!4v1689261234567!5m2!1sen!2szm" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">ZAMDREAM<span>LIMITED</span></div>
+                    <p> Zamdream, Bringing better services for a reliable future in real world</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#values">Our Values</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Construction Avenue, Industrial Area, Lusaka, Zambia</p>
+                    <p><i class="fas fa-phone"></i> +260 211 123 456</p>
+                    <p><i class="fas fa-envelope"></i> info@zamdream.co.zm</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Zamdream. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Hero Section Slideshow
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroContents = document.querySelectorAll('.hero-content');
+        const heroIndicators = document.querySelectorAll('.hero-indicator');
+        const prevHeroBtn = document.getElementById('prevHeroSlide');
+        const nextHeroBtn = document.getElementById('nextHeroSlide');
+        let currentHeroSlide = 0;
+        let heroInterval;
+
+        const updateHeroSlide = (index) => {
+            // Remove active classes
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            heroContents.forEach(content => content.classList.remove('active'));
+            heroIndicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            // Add active classes to current slide
+            heroSlides[index].classList.add('active');
+            heroContents[index].classList.add('active');
+            heroIndicators[index].classList.add('active');
+            
+            currentHeroSlide = index;
+        };
+
+        const nextHeroSlide = () => {
+            let nextIndex = (currentHeroSlide + 1) % heroSlides.length;
+            updateHeroSlide(nextIndex);
+        };
+
+        const prevHeroSlide = () => {
+            let prevIndex = (currentHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+            updateHeroSlide(prevIndex);
+        };
+
+        // Auto slide hero
+        const startHeroInterval = () => {
+            heroInterval = setInterval(nextHeroSlide, 5000);
+        };
+
+        const resetHeroInterval = () => {
+            clearInterval(heroInterval);
+            startHeroInterval();
+        };
+
+        // Event listeners for hero navigation
+        nextHeroBtn.addEventListener('click', () => {
+            nextHeroSlide();
+            resetHeroInterval();
+        });
+
+        prevHeroBtn.addEventListener('click', () => {
+            prevHeroSlide();
+            resetHeroInterval();
+        });
+
+        heroIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                updateHeroSlide(index);
+                resetHeroInterval();
+            });
+        });
+
+        // Start hero slideshow
+        startHeroInterval();
+
+        // Scroll animation trigger
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.about-img, .about-text, .value-card, .service-card, .stat-item, .contact-form, .location-map');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                    
+                    // Trigger number counting for stats
+                    if (element.classList.contains('stat-item')) {
+                        const statNumber = element.querySelector('.stat-number');
+                        const target = parseInt(statNumber.getAttribute('data-target'));
+                        animateNumber(statNumber, target);
+                    }
+                    
+                    // Trigger circular progress for values
+                    if (element.classList.contains('value-card') && !element.classList.contains('animated')) {
+                        element.classList.add('animated');
+                        const progressFill = element.querySelector('.value-progress-fill');
+                        const progressText = element.querySelector('.value-progress-text');
+                        const percent = parseInt(progressFill.getAttribute('data-percent'));
+                        
+                        // Animate the circular progress
+                        const radius = 70;
+                        const circumference = 2 * Math.PI * radius;
+                        const offset = circumference - (percent / 100) * circumference;
+                        
+                        progressFill.style.strokeDashoffset = circumference;
+                        setTimeout(() => {
+                            progressFill.style.strokeDashoffset = offset;
+                        }, 300);
+                        
+                        // Animate the percentage text
+                        let currentPercent = 0;
+                        const increment = percent / 50;
+                        const textTimer = setInterval(() => {
+                            currentPercent += increment;
+                            if (currentPercent >= percent) {
+                                progressText.textContent = percent;
+                                clearInterval(textTimer);
+                            } else {
+                                progressText.textContent = Math.floor(currentPercent);
+                            }
+                        }, 30);
+                    }
+                }
+            });
+        };
+
+        // Number counting animation
+        const animateNumber = (element, target) => {
+            if (element.classList.contains('animated')) return;
+            
+            element.classList.add('animated');
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        };
+
+        // Image Carousel
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.carousel-slide').length;
+
+        const updateCarousel = () => {
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                currentSlide = parseInt(indicator.getAttribute('data-slide'));
+                updateCarousel();
+            });
+        });
+
+        // Auto slide carousel
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactFormElement');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            
+            // Change button text
+            submitBtn.innerHTML = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Using web3forms API
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    contactForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    alert('There was an error sending your message. Please try again.');
+                }
+            } catch (error) {
+                alert('There was an error sending your message. Please try again.');
+            } finally {
+                // Reset button
+                submitBtn.innerHTML = 'Send Message';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Value cards hover animation
+        document.querySelectorAll('.value-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.value-icon i');
+                icon.style.transform = 'scale(1.2)';
+                icon.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.value-icon i');
+                icon.style.transform = 'scale(1)';
+            });
+        });
+
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            // Initial check for scroll animations
+            animateOnScroll();
+        });
+
+        // Check for scroll animations
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
